@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.css">
+  <title>My Neighbourhood Map</title>
+</head>
+<body>
+  <div id="outerdiv">
+    <div id="map"></div>
+  </div>
+  <div id="side-bar">
+    <input id="input" placeholder="Filter..." type="input" autocomplete="off"></input>
+    <div id="scroll">
+      <ul data-bind="foreach: locationList">
+        <li data-bind="text: title"></li>
+      </ul>
+    </div>
+  </div>  
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/KO.js"></script>
+  <script src="js/app.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&key=AIzaSyD9JKpD_OOZpTbOt3hbOsgDe2L9l5YhdMY&v=3&callback=initMap"></script>
+</body>
+</html>
