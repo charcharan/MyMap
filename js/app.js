@@ -1,5 +1,6 @@
 var map;
 var markers = [];
+var largeInfowindow;
 var locations = [
   {title: 'Stonehouse Pet', location: {lat: 14.455943, lng: 79.992699}},
   {title: 'Golconda Fort', location: {lat: 17.385363, lng: 78.40413}},
@@ -17,7 +18,7 @@ var locations = [
           zoom: 13
         });
 
-        var largeInfowindow = new google.maps.InfoWindow();
+        largeInfowindow = new google.maps.InfoWindow();
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < locations.length; i++) {
         // Get the position from the location array.
@@ -55,6 +56,11 @@ var locations = [
         infowindow.marker = marker;
         infowindow.setContent('<div>' + marker.title + '</div>');
         infowindow.open(map, marker);
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+        marker.setAnimation(null);
+    }, 3000);
+
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick',function(){
           infowindow.setMarker(null);
@@ -63,7 +69,13 @@ var locations = [
 		}
 	}
 var ViewModel = function() {
-  this.locationList = ko.observableArray(locations);
-  
+  var self = this;
+  self.locationList = ko.observableArray(locations);
+  this.onclickInfowindow = function() {
+        google.maps.event.trigger(markers.marker, 'click');
+        console.log('displaying infowindow on name click event');
+        };
+
+
 }
 ko.applyBindings(new ViewModel());
