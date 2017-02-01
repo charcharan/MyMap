@@ -69,9 +69,17 @@ var locations = [
 		}
 	}
 var ViewModel = function() {
+  var self = this;
   this.locationList = ko.observableArray(locations);
+  this.markeranime = function() {
+    markers.addEventListener('click', function() {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function() {
+      marker.setAnimation(null);
+  }, 3000);
+    });
 
 
-
-}
+};
+};
 ko.applyBindings(new ViewModel());
