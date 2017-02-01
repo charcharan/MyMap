@@ -69,12 +69,8 @@ var locations = [
 		}
 	}
 var ViewModel = function() {
-  var self = this;
-  self.locationList = ko.observableArray(locations);
-  this.onclickInfowindow = function() {
-        google.maps.event.trigger(markers.marker, 'click');
-        console.log('displaying infowindow on name click event');
-        };
+  this.locationList = ko.observableArray(locations);
+
 
 
 }
