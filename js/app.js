@@ -42,6 +42,8 @@ var locations = [
           populateInfoWindow(this, largeInfowindow);
         });
         bounds.extend(markers[i].position);
+        locations[i].marker = marker;
+
       }
       // Extend the boundaries of the map for each marker
       map.fitBounds(bounds);
@@ -69,20 +71,27 @@ var locations = [
 
 		}
 	}
-var ViewModel = function() {
-  var self = this;
-  this.locationList = ko.observableArray(locations);
 
-  // this.currentLoc = ko.observable(this.locationList()[0]);
+  var ViewModel = function() {
+    var self = this;
+    self.currentFilter = ko.observable('');
+    this.title = ko.observable(locations[0].title);
 
-  this.setLoc = function(clickedLoc) {
-    google.maps.event.trigger(clickedLoc.marker, 'click');
-
-    console.log(clickedLoc);
-
-      };
+    this.locationList = ko.observableArray(locations);
 
 
-  };
+    this.setLoc = function(clickedLoc) {
+
+      google.maps.event.trigger(clickedLoc.marker, 'click');
+
+      console.log(clickedLoc);
+
+        };
+
+
+
+
+
+};
 
 ko.applyBindings(new ViewModel());
