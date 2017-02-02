@@ -1,6 +1,7 @@
 var map;
 var markers = [];
 var largeInfowindow;
+var infowindow;
 var locations = [
   {title: 'Stonehouse Pet', location: {lat: 14.455943, lng: 79.992699}},
   {title: 'Golconda Fort', location: {lat: 17.385363, lng: 78.40413}},
@@ -71,15 +72,14 @@ var locations = [
 var ViewModel = function() {
   var self = this;
   this.locationList = ko.observableArray(locations);
-  this.markeranime = function() {
-    markers.addEventListener('click', function() {
-      marker.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout(function() {
-      marker.setAnimation(null);
-  }, 3000);
-    });
+
+  this.currentLoc = ko.observable(this.locationList()[0]);
+
+  this.setLoc = function(clickedLoc) {
+    self.currentLoc(clickedLoc);
 
 
-};
+
+  };
 };
 ko.applyBindings(new ViewModel());
