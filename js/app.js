@@ -73,13 +73,16 @@ var ViewModel = function() {
   var self = this;
   this.locationList = ko.observableArray(locations);
 
-  this.currentLoc = ko.observable(this.locationList()[0]);
+  // this.currentLoc = ko.observable(this.locationList()[0]);
 
   this.setLoc = function(clickedLoc) {
-    self.currentLoc(clickedLoc);
+    google.maps.event.trigger(clickedLoc.marker, 'click');
 
+    console.log(clickedLoc);
+
+      };
 
 
   };
-};
+
 ko.applyBindings(new ViewModel());
