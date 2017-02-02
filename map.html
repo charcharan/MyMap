@@ -15,7 +15,7 @@
     <input id="input" placeholder="Filter..." type="input" autocomplete="off"></input>
     <div id="scroll">
       <ul data-bind="foreach: locationList">
-        <li data-bind="text: title"></li>
+        <li data-bind="text: title, click: $parent.markeranime"></li>
       </ul>
     </div>
   </div>
