@@ -12,9 +12,9 @@
     <div id="map"></div>
   </div>
   <div id="side-bar">
-    <input id="input"  placeholder="Filter..." type="input" autocomplete="off"></input>
+    <input id="input"  placeholder="Filter..." type="input" autocomplete="off" data-bind="textInput: currentFilter"></input>
     <div id="scroll">
-      <ul data-bind="foreach: locationList">
+      <ul data-bind="foreach: filteredList">
         <li data-bind="text: title, click: $parent.setLoc"></li>
       </ul>
     </div>
