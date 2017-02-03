@@ -208,4 +208,4 @@ function populateInfoWindow(marker, infowindow) {
         }
     });
 
-}
+};
