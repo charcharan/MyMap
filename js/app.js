@@ -60,7 +60,9 @@ var locations = [{
     },
 ];
 var marker;
-
+var googleError = function() {
+	alert('Error connecting to Google Maps. Please try again later.');
+};
 function initMap() {
     // Constructor creates a new map - only center and zoom are required.
     map = new google.maps.Map(document.getElementById('map'), {
@@ -143,8 +145,7 @@ var ViewModel = function() {
             // save the current iteratee as "loc" for easier reference
             loc = self.locationList()[i];
             // if the filter is inside the title...
-            // OPTIONAL TODO: convert title and the currentFilter
-            // to lowercase before comparing them
+
             if (loc.title.toLowerCase().indexOf(self.currentFilter()) !== -1) {
                 // add the location to the temporary array
                 tempArray.push(loc);
@@ -159,17 +160,12 @@ var ViewModel = function() {
         // so it's value will be the filtered list
         return tempArray;
     }, this);
+    //to animate the particular marker corresponding to the click
 
     this.setLoc = function(clickedLoc) {
-
         google.maps.event.trigger(clickedLoc.marker, 'click');
-
-        console.log(clickedLoc);
-
     };
-
 };
-
 ko.applyBindings(new ViewModel());
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
