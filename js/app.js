@@ -102,6 +102,11 @@ function initMap() {
     }
     // Extend the boundaries of the map for each marker
     map.fitBounds(bounds);
+    google.maps.event.addDomListener(window, "resize", function() {
+  var center = map.getCenter();
+  google.maps.event.trigger(map, "resize");
+  map.setCenter(center);
+});
 }
 var ViewModel = function() {
     var self = this;
