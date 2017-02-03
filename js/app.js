@@ -197,7 +197,7 @@ function populateInfoWindow(marker, infowindow) {
             marker.setAnimation(google.maps.Animation.BOUNCE);
             setTimeout(function() {
                 marker.setAnimation(null);
-            }, 3000);
+            }, 700);
 
             // TODO: Create an AJAX request to a third party site (e.g. wikipedia)
             // ex: $.ajax({construct the query here})
