@@ -76,14 +76,6 @@ function initMap() {
     largeInfowindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
 
-    var marker = new google.maps.Marker({
-        map: map,
-        position: position,
-        title: title,
-        animation: google.maps.Animation.DROP,
-        id: i
-    });
-
     for (var i = 0; i < locations.length; i++) {
         // Get the position from the location array.
         var position = locations[i].location;
@@ -91,7 +83,7 @@ function initMap() {
         // locations[i].marker = marker;
 
         // Create a marker per location, and put into markers array.
-        marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
             map: map,
             position: position,
             title: title,
