@@ -3,7 +3,7 @@ var markers = [];
 var largeInfowindow;
 var infowindow;
 var locations = [
-    { title: 'Stonehouse Pet', location: { lat: 14.455943, lng: 79.992699 } },
+    { title: 'Nellore', location: { lat: 14.442599, lng: 79.986456 } },
     { title: 'Golconda Fort', location: { lat: 17.385363, lng: 78.40413 } },
     { title: 'Tirumala', location: { lat: 13.678184, lng: 79.332357 } },
     { title: 'Hampi', location: { lat: 15.335013, lng: 76.460025 } },
@@ -52,55 +52,6 @@ function initMap() {
     // Extend the boundaries of the map for each marker
     map.fitBounds(bounds);
 }
-
-// This function populates the infowindow when the marker is clicked. We'll only allow
-// one infowindow which will open at the marker that is clicked, and populate based
-// on that markers position.
-function populateInfoWindow(marker, infowindow) {
-    // Check to make sure the infowindow is not already opened on this marker.
-
-        var articleUrl;
-        var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
-        var wikiTimeout = setTimeout(function () {
-           alert("failed to load wikipedia page");
-       }, 8000);
-       $.ajax({
-           url: wikiURL,
-           dataType: "jsonp"
-           //jsnop datatype
-       }).success(function(response) {
-           //timeout is cleared if wikipedia link is loaded successfully
-           clearTimeout(wikiTimeout);
-           //response from wikipedia api
-           articleUrl = response[1];
-           });
-           if (infowindow.marker != marker) {
-
-               infowindow.marker = marker;
-               infowindow.setContent('<div>' + marker.title + '</div><br><a href ="' + articleUrl + '">' + articleUrl + '</a><hr>');
-               infowindow.open(map, marker);
-               marker.setAnimation(google.maps.Animation.BOUNCE);
-               setTimeout(function() {
-                   marker.setAnimation(null);
-               }, 3000);
-
-
-
-
-        // TODO: Create an AJAX request to a third party site (e.g. wikipedia)
-        // ex: $.ajax({construct the query here})
-        // .done(function(response) {})
-        // .fail(function(error) {});
-
-        // Make sure the marker property is cleared if the infowindow is closed.
-        infowindow.addListener('closeclick', function() {
-            // infowindow.setMarker(null);
-            infowindow.marker = null;
-        });
-
-    }
-}
-var loc;
 var ViewModel = function() {
     var self = this;
     self.currentFilter = ko.observable('');
@@ -116,7 +67,10 @@ var ViewModel = function() {
             // save the current iteratee as "loc" for easier reference
             loc = self.locationList()[i];
             console.log(loc);
-            loc.marker.setVisible(true);
+            if (loc.marker) {
+              console.log('hi');
+            }
+            // loc.marker.setVisible(true);
           }
           // self.locationList()[3].marker.setVisible(true);
           // return the entire location list from the comp. observable
@@ -163,3 +117,55 @@ var ViewModel = function() {
 };
 
 ko.applyBindings(new ViewModel());
+
+// This function populates the infowindow when the marker is clicked. We'll only allow
+// one infowindow which will open at the marker that is clicked, and populate based
+// on that markers position.
+function populateInfoWindow(marker, infowindow) {
+    // Check to make sure the infowindow is not already opened on this marker.
+
+        var articleUrl;
+        var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
+        var wikiTimeout = setTimeout(function () {
+           alert("failed to load wikipedia page");
+       }, 8000);
+       $.ajax({
+           url: wikiURL,
+           dataType: "jsonp"
+           //jsnop datatype
+       }).success(function(response) {
+           //timeout is cleared if wikipedia link is loaded successfully
+           clearTimeout(wikiTimeout);
+           var articleUrl;
+
+           //response from wikipedia api
+           articleUrl = response[2];
+           if (infowindow.marker != marker) {
+
+               infowindow.marker = marker;
+               infowindow.setContent('<div>' + marker.title + '</div><br><a href ="' + articleUrl + '">' + articleUrl + '</a><hr>');
+               infowindow.open(map, marker);
+               marker.setAnimation(google.maps.Animation.BOUNCE);
+               setTimeout(function() {
+                   marker.setAnimation(null);
+               }, 3000);
+
+
+
+
+        // TODO: Create an AJAX request to a third party site (e.g. wikipedia)
+        // ex: $.ajax({construct the query here})
+        // .done(function(response) {})
+        // .fail(function(error) {});
+
+        // Make sure the marker property is cleared if the infowindow is closed.
+        infowindow.addListener('closeclick', function() {
+            // infowindow.setMarker(null);
+            infowindow.marker = null;
+        });
+
+    }
+           });
+
+}
+var loc;
