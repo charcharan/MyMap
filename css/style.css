@@ -1,31 +1,28 @@
+* {
+    box-sizing: border-box;
+}
 html,
-      body {
-        font-family: Arial, sans-serif;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      #map {
-        width: 100%;
+body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map {
+    width: 100%;
     height: 100%;
     position: absolute;
     margin: 0px auto;
-  display: inline-block
-      }
-      #side-bar {
-        position: absolute;
-  right: 0px;
-  width: 280px;
-  max-height: 549px;
-  background-color: rgba(256, 256, 256, .9);
-  border: solid 2px black;
-  overflow: hidden;
-      }
-      #scroll {
-    max-height: 480px;
-    margin: 0 5px;
-    overflow-x: hidden;
+    display: inline-block
+}
+#side-bar {
+    position: absolute;
+    right: 0px;
+    width: 280px;
+    max-height: 549px;
+    background-color: rgba(256, 256, 256, .9);
+    border: solid 2px black;
+    overflow: hidden;
 }
 #input {
     margin: 15px 0 5px 20px;
@@ -41,4 +38,15 @@ html,
     height: 100%;
     position: fixed;
     text-align: left
+}
+@media screen and (max-width: 650px) {
+    #side-bar {
+        display: none;
+    }
+}
+@media screen and (max-width: 800px) {
+    #side-bar {
+        width: 30%;
+
+    }
 }
