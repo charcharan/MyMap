@@ -58,15 +58,34 @@ function initMap() {
 // on that markers position.
 function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker != marker) {
 
-        infowindow.marker = marker;
-        infowindow.setContent('<div>' + marker.title + '</div>');
-        infowindow.open(map, marker);
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function() {
-            marker.setAnimation(null);
-        }, 3000);
+        var articleUrl;
+        var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
+        var wikiTimeout = setTimeout(function () {
+           alert("failed to load wikipedia page");
+       }, 8000);
+       $.ajax({
+           url: wikiURL,
+           dataType: "jsonp"
+           //jsnop datatype
+       }).success(function(response) {
+           //timeout is cleared if wikipedia link is loaded successfully
+           clearTimeout(wikiTimeout);
+           //response from wikipedia api
+           articleUrl = response[1];
+           });
+           if (infowindow.marker != marker) {
+
+               infowindow.marker = marker;
+               infowindow.setContent('<div>' + marker.title + '</div><br><a href ="' + articleUrl + '">' + articleUrl + '</a><hr>');
+               infowindow.open(map, marker);
+               marker.setAnimation(google.maps.Animation.BOUNCE);
+               setTimeout(function() {
+                   marker.setAnimation(null);
+               }, 3000);
+
+
+
 
         // TODO: Create an AJAX request to a third party site (e.g. wikipedia)
         // ex: $.ajax({construct the query here})
